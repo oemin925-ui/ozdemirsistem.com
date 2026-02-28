@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ürün Otomasyon ve Stok Takip Paneli</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Ürün Otomasyon ve Stok Takip Paneli</h1>
+    <p>E-ticaret siteniz için ürünleri hızlı ekleyin, stok hareketlerini takip edin.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Toplu Ürün Ekleme (CSV)</h2>
+      <p>Format: <code>sku,ad,fiyat,stok</code></p>
+      <textarea id="csvInput" rows="6" placeholder="SKU-001,Örnek Ürün,199.90,25"></textarea>
+      <button id="bulkAddBtn">Ürünleri Ekle / Güncelle</button>
+      <small>Aynı SKU varsa ürün güncellenir, stok üstüne eklenir.</small>
+    </section>
+
+    <section class="card grid-two">
+      <div>
+        <h2>Tekil Ürün Ekle</h2>
+        <form id="productForm">
+          <label>SKU <input name="sku" required /></label>
+          <label>Ürün Adı <input name="name" required /></label>
+          <label>Fiyat (₺) <input name="price" type="number" min="0" step="0.01" required /></label>
+          <label>Başlangıç Stok <input name="stock" type="number" min="0" step="1" required /></label>
+          <button type="submit">Ürün Ekle</button>
+        </form>
+      </div>
+
+      <div>
+        <h2>Stok Hareketi</h2>
+        <form id="movementForm">
+          <label>SKU <input name="sku" required /></label>
+          <label>İşlem
+            <select name="type">
+              <option value="in">Giriş (+)</option>
+              <option value="out">Çıkış (-)</option>
+            </select>
+          </label>
+          <label>Adet <input name="qty" type="number" min="1" step="1" required /></label>
+          <button type="submit">Hareket Uygula</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="table-header">
+        <h2>Stok Listesi</h2>
+        <label>Alarm Eşiği
+          <input id="threshold" type="number" min="0" step="1" value="10" />
+        </label>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th>Ürün</th>
+            <th>Fiyat</th>
+            <th>Stok</th>
+            <th>Durum</th>
+          </tr>
+        </thead>
+        <tbody id="productTable"></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>İşlem Logları</h2>
+      <ul id="logs"></ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
